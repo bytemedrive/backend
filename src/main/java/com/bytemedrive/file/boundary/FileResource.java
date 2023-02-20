@@ -1,7 +1,9 @@
 package com.bytemedrive.file.boundary;
 
 import com.bytemedrive.file.entity.FileUpload;
+import software.amazon.awssdk.services.s3.S3Client;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -16,6 +18,9 @@ import javax.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class FileResource {
+
+    @Inject
+    S3Client s3Client;
 
     @POST()
     public Response uploadFile(@NotNull @Valid FileUpload fileUpload) {
