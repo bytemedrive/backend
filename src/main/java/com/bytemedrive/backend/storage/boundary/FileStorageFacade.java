@@ -1,4 +1,4 @@
-package com.bytemedrive.storage.boundary;
+package com.bytemedrive.backend.storage.boundary;
 
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;

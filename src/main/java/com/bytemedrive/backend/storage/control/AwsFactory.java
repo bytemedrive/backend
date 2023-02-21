@@ -1,4 +1,4 @@
-package com.bytemedrive.storage.control;
+package com.bytemedrive.backend.storage.control;
 
 import io.quarkus.runtime.Startup;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -12,8 +12,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
 
-@Startup
-@ApplicationScoped
+//@Startup
+//@ApplicationScoped
 public class AwsFactory {
 
     @ConfigProperty(name = "aws.bucket.region")

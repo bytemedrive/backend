@@ -1,1 +1,14 @@
 = ByteMe Backend
+
+== Development
+
+Developer needs to have Docker engine on his machine installed.
+
+. Eventstore
+
+    docker run -d --name esdb -p 2113:2113 ghcr.io/bytemedrive/eventstoredb:23.02.0
+    docker run -d --name esdb -p 2113:2113 ghcr.io/bytemedrive/eventstoredb:23.02.0-arm
+
+. Postgresql
+
+    docker run -d --name byteme -p 5432:5432 -e POSTGRES_USER=byteme -e POSTGRES_PASSWORD=byteme0147 -e POSTGRES_DB=byteme postgres:14.1-alpine
