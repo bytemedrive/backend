@@ -1,4 +1,4 @@
-package com.bytemedrive.backend.store.esdb.control;
+package com.bytemedrive.backend.store.control;
 
 import com.eventstore.dbclient.EventStoreDBPersistentSubscriptionsClient;
 import com.eventstore.dbclient.PersistentSubscription;

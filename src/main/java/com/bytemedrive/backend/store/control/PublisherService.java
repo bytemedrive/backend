@@ -1,12 +1,12 @@
-package com.bytemedrive.backend.store.esdb.control;
+package com.bytemedrive.backend.store.control;
 
 import com.bytemedrive.backend.privacy.boundary.PrivacyFacade;
-import com.bytemedrive.backend.store.root.entity.AggregateId;
-import com.bytemedrive.backend.store.root.entity.EventObjectWrapper;
-import com.bytemedrive.backend.store.root.entity.Index;
-import com.bytemedrive.backend.store.root.entity.IndexType;
-import com.bytemedrive.backend.store.root.entity.RootAggregate;
-import com.bytemedrive.backend.store.root.entity.StoreEvent;
+import com.bytemedrive.backend.store.entity.AggregateId;
+import com.bytemedrive.backend.store.entity.EventObjectWrapper;
+import com.bytemedrive.backend.store.entity.Index;
+import com.bytemedrive.backend.store.entity.IndexType;
+import com.bytemedrive.backend.store.entity.RootAggregate;
+import com.bytemedrive.backend.store.entity.StoreEvent;
 import com.eventstore.dbclient.EventData;
 import com.eventstore.dbclient.EventStoreDBClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 
 @ApplicationScoped
-public class EsdbPublisherService {
+public class PublisherService {
 
     @Inject
     Logger log;

@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 @ApplicationScoped

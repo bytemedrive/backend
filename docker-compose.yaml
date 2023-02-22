@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  event-store-database:
+    image: ghcr.io/bytemedrive/eventstoredb:dev-arm
+    ports:
+      - "2113:2113"
+      - "1113:1113"
+
+  postgres-database:
+    image: postgres:14.7-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "byteme"
+      POSTGRES_PASSWORD: "byteme0147"
+      POSTGRES_DB: "byteme"
+    volumes:
+      - byteme-postgres-database-volume:/var/lib/postgresql/data
+
+volumes:
+  byteme-postgres-database-volume:

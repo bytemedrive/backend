@@ -1,4 +1,4 @@
-package com.bytemedrive.backend.store.root.entity;
+package com.bytemedrive.backend.store.entity;
 
 import java.time.ZonedDateTime;
 import java.util.Map;

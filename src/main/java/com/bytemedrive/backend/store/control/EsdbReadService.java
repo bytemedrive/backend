@@ -1,13 +1,12 @@
-package com.bytemedrive.backend.store.esdb.control;
+package com.bytemedrive.backend.store.control;
 
 import com.bytemedrive.backend.privacy.boundary.PrivacyFacade;
-import com.bytemedrive.backend.store.root.boundary.RootAggregateConverter;
-import com.bytemedrive.backend.store.root.entity.AbstractAggregate;
-import com.bytemedrive.backend.store.root.entity.EventMapWrapper;
-import com.bytemedrive.backend.store.root.entity.EventStream;
-import com.bytemedrive.backend.store.root.entity.IndexType;
-import com.bytemedrive.backend.store.root.entity.RootAggregate;
-import com.bytemedrive.backend.store.root.entity.StoreEvent;
+import com.bytemedrive.backend.store.entity.AbstractAggregate;
+import com.bytemedrive.backend.store.entity.EventMapWrapper;
+import com.bytemedrive.backend.store.entity.EventStream;
+import com.bytemedrive.backend.store.entity.IndexType;
+import com.bytemedrive.backend.store.entity.RootAggregate;
+import com.bytemedrive.backend.store.entity.StoreEvent;
 import com.eventstore.dbclient.EventStoreDBClient;
 import com.eventstore.dbclient.ReadStreamOptions;
 import com.eventstore.dbclient.RecordedEvent;

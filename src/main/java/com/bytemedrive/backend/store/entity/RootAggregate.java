@@ -1,4 +1,4 @@
-package com.bytemedrive.backend.store.root.entity;
+package com.bytemedrive.backend.store.entity;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

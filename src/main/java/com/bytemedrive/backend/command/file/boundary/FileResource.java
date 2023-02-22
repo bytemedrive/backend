@@ -2,7 +2,7 @@ package com.bytemedrive.backend.command.file.boundary;
 
 import com.bytemedrive.backend.command.file.entity.EventFileUploaded;
 import com.bytemedrive.backend.command.file.entity.FileUpload;
-import com.bytemedrive.backend.store.esdb.boundary.StoreFacade;
+import com.bytemedrive.backend.store.boundary.StoreFacade;
 import org.jboss.logging.Logger;
 
 import javax.inject.Inject;

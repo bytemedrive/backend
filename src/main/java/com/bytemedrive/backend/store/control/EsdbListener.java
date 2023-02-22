@@ -1,6 +1,6 @@
-package com.bytemedrive.backend.store.esdb.control;
+package com.bytemedrive.backend.store.control;
 
-import com.bytemedrive.backend.store.root.entity.StoreEvent;
+import com.bytemedrive.backend.store.entity.StoreEvent;
 import com.eventstore.dbclient.PersistentSubscription;
 import com.eventstore.dbclient.PersistentSubscriptionListener;
 import com.eventstore.dbclient.ResolvedEvent;
@@ -28,7 +28,7 @@ public class EsdbListener extends PersistentSubscriptionListener {
 
     @PostConstruct
     void init() {
-        mapEvents = new Reflections("io.earthbanc.backend")
+        mapEvents = new Reflections("com.bytemedrive.backend")
                 .getTypesAnnotatedWith(StoreEvent.class)
                 .stream()
                 .map(est -> est.getAnnotation(StoreEvent.class))
