@@ -1,4 +1,4 @@
-package com.bytemedrive.backend.store.control;
+package com.bytemedrive.backend.store.esdb.control;
 
 import com.eventstore.dbclient.Endpoint;
 import com.eventstore.dbclient.EventStoreDBClient;
@@ -58,6 +58,7 @@ public class EsdbClientFactory {
         if (esdbClient != null) {
             esdbClient.shutdown();
         }
+
         if (esdbSubscriptionsClient != null) {
             esdbSubscriptionsClient.shutdown();
         }

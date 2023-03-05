@@ -1,4 +1,4 @@
-package com.bytemedrive.backend.store.entity;
+package com.bytemedrive.backend.store.root.entity;
 
 public class EventStoreException extends RuntimeException {
     public EventStoreException() {

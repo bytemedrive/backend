@@ -1,6 +1,6 @@
-package com.bytemedrive.backend.store.control;
+package com.bytemedrive.backend.store.esdb.control;
 
-import com.bytemedrive.backend.store.entity.StoreEvent;
+import com.bytemedrive.backend.store.root.entity.StoreEvent;
 import com.eventstore.dbclient.PersistentSubscription;
 import com.eventstore.dbclient.PersistentSubscriptionListener;
 import com.eventstore.dbclient.ResolvedEvent;

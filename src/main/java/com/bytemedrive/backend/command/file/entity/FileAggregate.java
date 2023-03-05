@@ -1,7 +1,8 @@
 package com.bytemedrive.backend.command.file.entity;
 
-import com.bytemedrive.backend.store.entity.AbstractAggregate;
-import com.bytemedrive.backend.store.entity.RootAggregate;
+
+import com.bytemedrive.backend.store.root.entity.AbstractAggregate;
+import com.bytemedrive.backend.store.root.entity.RootAggregate;
 
 
 @RootAggregate(FileAggregate.NAME)

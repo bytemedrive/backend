@@ -1,4 +1,4 @@
-package com.bytemedrive.backend.store.entity;
+package com.bytemedrive.backend.store.root.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.jboss.logging.Logger;

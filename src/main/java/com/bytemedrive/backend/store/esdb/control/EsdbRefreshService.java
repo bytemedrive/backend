@@ -1,7 +1,7 @@
-package com.bytemedrive.backend.store.control;
+package com.bytemedrive.backend.store.esdb.control;
 
-import com.bytemedrive.backend.store.entity.AbstractAggregate;
-import com.bytemedrive.backend.store.entity.RootAggregate;
+import com.bytemedrive.backend.store.root.entity.AbstractAggregate;
+import com.bytemedrive.backend.store.root.entity.RootAggregate;
 import com.eventstore.dbclient.EventStoreDBClient;
 import com.eventstore.dbclient.ReadMessage;
 import com.eventstore.dbclient.ReadStreamOptions;

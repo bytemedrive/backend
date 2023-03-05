@@ -1,11 +1,11 @@
-package com.bytemedrive.backend.store.boundary;
+package com.bytemedrive.backend.store.esdb.boundary;
 
-import com.bytemedrive.backend.store.control.PublisherService;
-import com.bytemedrive.backend.store.control.EsdbReadService;
-import com.bytemedrive.backend.store.control.EsdbRefreshService;
-import com.bytemedrive.backend.store.entity.AbstractAggregate;
-import com.bytemedrive.backend.store.entity.EventMapWrapper;
-import com.bytemedrive.backend.store.entity.IndexType;
+import com.bytemedrive.backend.store.esdb.control.EsdbPublisherService;
+import com.bytemedrive.backend.store.esdb.control.EsdbReadService;
+import com.bytemedrive.backend.store.esdb.control.EsdbRefreshService;
+import com.bytemedrive.backend.store.root.entity.AbstractAggregate;
+import com.bytemedrive.backend.store.root.entity.EventMapWrapper;
+import com.bytemedrive.backend.store.root.entity.IndexType;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,13 +17,13 @@ import java.util.concurrent.CompletableFuture;
 
 
 @ApplicationScoped
-public class StoreFacade {
+public class EsdbFacade {
 
     @Inject
     Logger log;
 
     @Inject
-    PublisherService servicePublisher;
+    EsdbPublisherService servicePublisher;
 
     @Inject
     EsdbReadService serviceRead;

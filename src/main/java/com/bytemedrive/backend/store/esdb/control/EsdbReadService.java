@@ -1,12 +1,13 @@
-package com.bytemedrive.backend.store.control;
+package com.bytemedrive.backend.store.esdb.control;
 
 import com.bytemedrive.backend.privacy.boundary.PrivacyFacade;
-import com.bytemedrive.backend.store.entity.AbstractAggregate;
-import com.bytemedrive.backend.store.entity.EventMapWrapper;
-import com.bytemedrive.backend.store.entity.EventStream;
-import com.bytemedrive.backend.store.entity.IndexType;
-import com.bytemedrive.backend.store.entity.RootAggregate;
-import com.bytemedrive.backend.store.entity.StoreEvent;
+import com.bytemedrive.backend.store.root.boundary.RootAggregateConverter;
+import com.bytemedrive.backend.store.root.entity.AbstractAggregate;
+import com.bytemedrive.backend.store.root.entity.EventMapWrapper;
+import com.bytemedrive.backend.store.root.entity.EventStream;
+import com.bytemedrive.backend.store.root.entity.IndexType;
+import com.bytemedrive.backend.store.root.entity.RootAggregate;
+import com.bytemedrive.backend.store.root.entity.StoreEvent;
 import com.eventstore.dbclient.EventStoreDBClient;
 import com.eventstore.dbclient.ReadStreamOptions;
 import com.eventstore.dbclient.RecordedEvent;
@@ -41,6 +42,9 @@ public class EsdbReadService {
     @Inject
     EventStoreDBClient esdbClient;
 
+    @Inject
+    PrivacyFacade facadePrivacy;
+
     Map<String, Class<?>> eventMap;
 
     @Inject
@@ -48,9 +52,6 @@ public class EsdbReadService {
 
     @Inject
     Instance<RootAggregateConverter<?>> converter;
-
-    @Inject
-    PrivacyFacade privacyFacade;
 
     @PostConstruct
     void init() {
@@ -65,16 +66,17 @@ public class EsdbReadService {
 
     public <T extends AbstractAggregate> List<EventMapWrapper> getWrapperEvents(String aggregateId, Class<T> tClass, boolean aggregateIdInPlainText) {
         return getAllMessages(aggregateId, tClass, aggregateIdInPlainText).stream()
-                .map(eventBytes -> new String(eventBytes, StandardCharsets.UTF_8))
+                .map(bytes -> new String(bytes, StandardCharsets.UTF_8))
                 .flatMap(this::toEventMapWrapper)
                 .toList();
     }
 
     private <T extends AbstractAggregate> List<byte[]> getAllMessages(String aggregateId, Class<T> tClass, boolean aggregateIdInPlainText) {
-        var aggregateIdSha3 = aggregateIdInPlainText ? privacyFacade.hashSha3(aggregateId) : aggregateId;
+        var aggregateIdSha3 = aggregateIdInPlainText ? facadePrivacy.hashSha3(aggregateId) : aggregateId;
         var streamName = "%s#%s".formatted(
                 tClass.getAnnotation(RootAggregate.class).value(),
-                aggregateIdSha3);
+                aggregateIdSha3
+        );
 
         try {
             var readResult = esdbClient
@@ -127,7 +129,7 @@ public class EsdbReadService {
     }
 
     public <T extends AbstractAggregate> Optional<T> findAggregateByIndex(String indexValue, IndexType indexType, Class<T> tClass) {
-        var indexStreamName = "%s#%s".formatted(indexType.getName(), privacyFacade.hashSha3(indexValue));
+        var indexStreamName = "%s#%s".formatted(indexType.getName(), facadePrivacy.hashSha3(indexValue));
 
         try {
             var readResult = esdbClient
@@ -141,7 +143,8 @@ public class EsdbReadService {
                 return Optional.empty();
             }
 
-            var aggregateIdSha3 = new String(results.get(0), StandardCharsets.UTF_8);
+            var aggregateStreamName = new String(results.get(0), StandardCharsets.UTF_8);
+            var aggregateIdSha3 = aggregateStreamName.substring(aggregateStreamName.indexOf('#') + 1);
             return findAggregate(aggregateIdSha3, tClass, false);
         } catch (StreamNotFoundException e) {
             log.warnf("index stream %s was not found", indexStreamName);

@@ -1,4 +1,4 @@
-package com.bytemedrive.backend.store.control;
+package com.bytemedrive.backend.store.esdb.control;
 
 import com.eventstore.dbclient.EventData;
 import com.eventstore.dbclient.EventStoreDBClient;

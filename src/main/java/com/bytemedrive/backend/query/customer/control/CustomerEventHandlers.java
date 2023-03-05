@@ -18,7 +18,7 @@ public class CustomerEventHandlers {
     EntityManager entityManager;
 
     @Transactional
-    void onChange(@ObservesAsync CustomerAggregate aggregate) {
+    public void onChange(@ObservesAsync CustomerAggregate aggregate) {
         var customer = Objects.requireNonNullElse(entityManager.find(CustomerEntity.class, aggregate.id), new CustomerEntity());
         customer.id = aggregate.id;
         customer.events = aggregate.events.stream().toList();

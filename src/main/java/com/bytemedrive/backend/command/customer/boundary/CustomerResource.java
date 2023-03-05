@@ -3,7 +3,7 @@ package com.bytemedrive.backend.command.customer.boundary;
 
 import com.bytemedrive.backend.command.customer.entity.EncryptedEvent;
 import com.bytemedrive.backend.command.customer.entity.EncryptedEventPublished;
-import com.bytemedrive.backend.store.boundary.StoreFacade;
+import com.bytemedrive.backend.store.root.boundary.StoreFacade;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

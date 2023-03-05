@@ -16,7 +16,7 @@
         <amazon-awssdk.version>2.19.0</amazon-awssdk.version>
         <eventstore-client.version>4.0.0</eventstore-client.version>
         <reflection.version>0.10.2</reflection.version>
-        <hibernate-types.version>2.21.1</hibernate-types.version>
+        <hibernate-types.version>2.20.0</hibernate-types.version>
     </properties>
 
     <dependencyManagement>

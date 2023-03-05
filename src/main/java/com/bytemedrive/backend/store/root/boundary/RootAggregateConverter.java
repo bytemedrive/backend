@@ -1,7 +1,7 @@
-package com.bytemedrive.backend.store.control;
+package com.bytemedrive.backend.store.root.boundary;
 
-import com.bytemedrive.backend.store.entity.AbstractAggregate;
-import com.bytemedrive.backend.store.entity.EventStream;
+import com.bytemedrive.backend.store.root.entity.AbstractAggregate;
+import com.bytemedrive.backend.store.root.entity.EventStream;
 
 
 public interface RootAggregateConverter<T extends AbstractAggregate> {

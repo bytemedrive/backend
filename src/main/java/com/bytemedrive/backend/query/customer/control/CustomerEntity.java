@@ -1,7 +1,9 @@
 package com.bytemedrive.backend.query.customer.control;
 
 
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import java.util.StringJoiner;
 
 @Entity
 @Table(name = "customer")
+@TypeDef(name = "json", typeClass = JsonType.class)
 public class CustomerEntity {
 
     @Id

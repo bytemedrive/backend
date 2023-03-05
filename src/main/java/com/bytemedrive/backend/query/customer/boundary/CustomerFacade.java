@@ -2,6 +2,7 @@ package com.bytemedrive.backend.query.customer.boundary;
 
 
 import com.bytemedrive.backend.query.customer.control.CustomerEntity;
+import com.bytemedrive.backend.store.root.boundary.StoreFacade;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -15,10 +16,11 @@ public class CustomerFacade {
     @Inject
     EntityManager entityManager;
 
+    @Inject
+    StoreFacade storeFacade;
+
     @Transactional
     public CustomerEntity getCustomer(String customerIdHash) {
-        return entityManager.createQuery("select c from CustomerEntity c where c.id = :id", CustomerEntity.class)
-                .setParameter("id", customerIdHash)
-                .getSingleResult();
+        return entityManager.find(CustomerEntity.class, customerIdHash);
     }
 }

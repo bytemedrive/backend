@@ -1,12 +1,12 @@
-package com.bytemedrive.backend.store.control;
+package com.bytemedrive.backend.store.esdb.control;
 
 import com.bytemedrive.backend.privacy.boundary.PrivacyFacade;
-import com.bytemedrive.backend.store.entity.AggregateId;
-import com.bytemedrive.backend.store.entity.EventObjectWrapper;
-import com.bytemedrive.backend.store.entity.Index;
-import com.bytemedrive.backend.store.entity.IndexType;
-import com.bytemedrive.backend.store.entity.RootAggregate;
-import com.bytemedrive.backend.store.entity.StoreEvent;
+import com.bytemedrive.backend.store.root.entity.AggregateId;
+import com.bytemedrive.backend.store.root.entity.EventObjectWrapper;
+import com.bytemedrive.backend.store.root.entity.Index;
+import com.bytemedrive.backend.store.root.entity.IndexType;
+import com.bytemedrive.backend.store.root.entity.RootAggregate;
+import com.bytemedrive.backend.store.root.entity.StoreEvent;
 import com.eventstore.dbclient.EventData;
 import com.eventstore.dbclient.EventStoreDBClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 
 @ApplicationScoped
-public class PublisherService {
+public class EsdbPublisherService {
 
     @Inject
     Logger log;
@@ -36,10 +36,10 @@ public class PublisherService {
     EventStoreDBClient esdbClient;
 
     @Inject
-    ObjectMapper objectMapper;
+    PrivacyFacade facadePrivacy;
 
     @Inject
-    PrivacyFacade privacyFacade;
+    ObjectMapper objectMapper;
 
     public CompletableFuture<Void> publishEvent(Object event) {
         return CompletableFuture.runAsync(() -> {
@@ -49,8 +49,11 @@ public class PublisherService {
                     writeIndices(event, oAggregateStreamName.get());
                 }
             } catch (Exception e) {
-                log.error("Cannot publish event " + event, e);
+                log.errorf(e, "Cannot publish event %s", event);
             }
+        }).exceptionally(throwable -> {
+            log.errorf(throwable, "Cannot publish event %s", event);
+            return null;
         });
     }
 
@@ -66,10 +69,11 @@ public class PublisherService {
         }
         var eventName = storeEvent.name();
         log.debugf("write data eventName: %s", eventName);
-        var aggregateIdSha3 = privacyFacade.hashSha3(aggregateId);
+        var eventString = objectMapper.writeValueAsString(new EventObjectWrapper(eventName, aggregateId, ZonedDateTime.now(), event));
+        var aggregateIdSha3 = facadePrivacy.hashSha3(aggregateId);
         log.debugf("write data aggregateIdSha3: %s", aggregateIdSha3);
-        var eventBytes = objectMapper.writeValueAsBytes(new EventObjectWrapper(eventName, aggregateId, ZonedDateTime.now(), event));
-        var data = EventData.builderAsBinary(eventName, eventBytes).build();
+
+        var data = EventData.builderAsBinary(eventName, eventString.getBytes(StandardCharsets.UTF_8)).build();
         var aggregateStreamName = "%s#%s".formatted(rootAggregateName, aggregateIdSha3);
         log.infof("write data aggregateStreamName: %s", aggregateStreamName);
         esdbClient.appendToStream(aggregateStreamName, data);
@@ -90,7 +94,7 @@ public class PublisherService {
             log.debugf("write indices indexType: %s", indexType);
             var indexValue = entry.getValue();
             log.debugf("write indices indexValue: %s", indexValue);
-            var indexValueSha3 = privacyFacade.hashSha3(indexValue);
+            var indexValueSha3 = facadePrivacy.hashSha3(indexValue);
             var indexStreamName = "%s#%s".formatted(indexType.getName(), indexValueSha3);
             log.debugf("write indices indexStreamName: %s", indexStreamName);
             var data = EventData

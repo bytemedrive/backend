@@ -2,12 +2,13 @@ version: '3.8'
 
 services:
   event-store-database:
-    image: ghcr.io/bytemedrive/eventstoredb:dev-arm
+    # image: ghcr.io/bytemedrive/eventstoredb:dev-arm
+    image: ghcr.io/earthbanc/eventstoredb:23.03.0-arm
     ports:
       - "2113:2113"
       - "1113:1113"
 
-  postgres-database:
+  postgres:
     image: postgres:14.7-alpine
     ports:
       - "5432:5432"
