@@ -7,7 +7,7 @@ Developer needs to have Docker engine on his machine installed.
 . Eventstore
 
     docker run -d --name esdb -p 2113:2113 ghcr.io/bytemedrive/eventstoredb:23.02.0
-    docker run -d --name esdb -p 2113:2113 ghcr.io/bytemedrive/eventstoredb:23.02.0-arm
+    docker run -d --name esdb -p 2113:2113 ghcr.io/bytemedrive/eventstoredb:dev-arm
 
 . Postgresql
 
